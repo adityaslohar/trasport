@@ -46,7 +46,7 @@ body {
 
 /* ================= SECTION 1: HERO ================= */
 .travelweb-aboutus-sec-1 {
-    background-image: url('/images/about-us-heading-bg-img-t.svg');
+    background-image: url('images/about-us-heading-bg-img-t.svg');
     background-size: cover;
     background-position: center;
     min-height: 420px;
