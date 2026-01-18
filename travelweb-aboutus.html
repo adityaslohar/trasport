@@ -94,114 +94,279 @@
             </div>
         </div>
     </section>
+<script>
+    // Auto-scroll functionality for timeline
+document.addEventListener('DOMContentLoaded', function() {
+    const timeline = document.getElementById('timeline-scroll');
+    const timelineWrapper = document.querySelector('.section-5-timeline-wrapper');
+    
+    if (!timeline || !timelineWrapper) return;
+    
+    // Calculate total scrollable width
+    const timelineRow = timeline.querySelector('.section-5-timeline-row');
+    const totalWidth = timelineRow.scrollWidth - timeline.clientWidth;
+    
+    // Variables for auto-scroll
+    let scrollPosition = 0;
+    let scrollSpeed = 1; // pixels per frame
+    let autoScrollDirection = 1; // 1 for right, -1 for left
+    let isPaused = false;
+    let animationId = null;
+    
+    // Add scroll indicators
+    const leftIndicator = document.createElement('div');
+ 
+    
+    const rightIndicator = document.createElement('div');
 
-    <!-- SECTION 5: TIMELINE -->
-    <section class="travelweb-aboutus-sec-5 py-5">
-        <div class="container">
-            <h2 class="travelweb-aboutus-sec-5-p mb-5">Our Journey Across Pan India</h2>
+
+    
+    timeline.parentElement.style.position = 'relative';
+    timeline.parentElement.appendChild(leftIndicator);
+    timeline.parentElement.appendChild(rightIndicator);
+    
+    // Update indicator visibility
+    function updateIndicators() {
+        if (scrollPosition <= 0) {
+            leftIndicator.classList.remove('show');
+        } else {
+            leftIndicator.classList.add('show');
+        }
+        
+        if (scrollPosition >= totalWidth) {
+            rightIndicator.classList.remove('show');
+        } else {
+            rightIndicator.classList.add('show');
+        }
+    }
+    
+    // Manual scroll with indicators
+    leftIndicator.addEventListener('click', function() {
+        scrollPosition -= 200;
+        if (scrollPosition < 0) scrollPosition = 0;
+        timeline.scrollTo({ left: scrollPosition, behavior: 'smooth' });
+        updateIndicators();
+    });
+    
+    rightIndicator.addEventListener('click', function() {
+        scrollPosition += 200;
+        if (scrollPosition > totalWidth) scrollPosition = totalWidth;
+        timeline.scrollTo({ left: scrollPosition, behavior: 'smooth' });
+        updateIndicators();
+    });
+    
+    // Auto-scroll animation
+    function autoScroll() {
+        if (!isPaused && totalWidth > 0) {
+            scrollPosition += scrollSpeed * autoScrollDirection;
             
-            <div class="section-5">
-                <div class="section-5-container">
-                    <div class="section-5-timeline">
-                        <div class="section-5-timeline-wrapper">
-                            <div class="section-5-timeline-line"></div>
-                            <div class="section-5-timeline-row">
-                                <!-- Nodes 1-12 -->
-                                <div class="section-5-node section-5-node-top">
-                                    <div class="section-5-node-connector"></div>
-                                    <div class="section-5-node-dot"></div>
-                                    <div class="section-5-node-label">
-                                        <div class="section-5-city">Sinnar</div>
-                                        <div class="section-5-year">2006</div>
-                                    </div>
+            // Reverse direction at boundaries
+            if (scrollPosition >= totalWidth) {
+                autoScrollDirection = -1;
+                scrollPosition = totalWidth;
+            } else if (scrollPosition <= 0) {
+                autoScrollDirection = 1;
+                scrollPosition = 0;
+            }
+            
+            timeline.scrollLeft = scrollPosition;
+            updateIndicators();
+        }
+        
+        animationId = requestAnimationFrame(autoScroll);
+    }
+    
+    // Pause on hover
+    timeline.addEventListener('mouseenter', function() {
+        isPaused = true;
+    });
+    
+    timeline.addEventListener('mouseleave', function() {
+        isPaused = false;
+    });
+    
+    // Pause on touch/drag
+    let isDragging = false;
+    let startX;
+    let startScrollLeft;
+    
+    timeline.addEventListener('mousedown', function(e) {
+        isDragging = true;
+        startX = e.pageX - timeline.offsetLeft;
+        startScrollLeft = timeline.scrollLeft;
+        timeline.style.cursor = 'grabbing';
+        isPaused = true;
+    });
+    
+    timeline.addEventListener('mousemove', function(e) {
+        if (!isDragging) return;
+        e.preventDefault();
+        const x = e.pageX - timeline.offsetLeft;
+        const walk = (x - startX) * 2;
+        timeline.scrollLeft = startScrollLeft - walk;
+        scrollPosition = timeline.scrollLeft;
+        updateIndicators();
+    });
+    
+    document.addEventListener('mouseup', function() {
+        isDragging = false;
+        timeline.style.cursor = 'grab';
+        // Resume auto-scroll after a short delay
+        setTimeout(() => {
+            isPaused = false;
+        }, 2000);
+    });
+    
+    // Touch events for mobile
+    timeline.addEventListener('touchstart', function(e) {
+        isDragging = true;
+        startX = e.touches[0].pageX - timeline.offsetLeft;
+        startScrollLeft = timeline.scrollLeft;
+        isPaused = true;
+    });
+    
+    timeline.addEventListener('touchmove', function(e) {
+        if (!isDragging) return;
+        e.preventDefault();
+        const x = e.touches[0].pageX - timeline.offsetLeft;
+        const walk = (x - startX) * 2;
+        timeline.scrollLeft = startScrollLeft - walk;
+        scrollPosition = timeline.scrollLeft;
+        updateIndicators();
+    });
+    
+    timeline.addEventListener('touchend', function() {
+        isDragging = false;
+        // Resume auto-scroll after a short delay
+        setTimeout(() => {
+            isPaused = false;
+        }, 2000);
+    });
+    
+    // Update scroll position on manual scroll
+    timeline.addEventListener('scroll', function() {
+        scrollPosition = timeline.scrollLeft;
+        updateIndicators();
+    });
+    
+    // Initialize
+    updateIndicators();
+    autoScroll();
+    
+    // Cleanup on page unload
+    window.addEventListener('beforeunload', function() {
+        if (animationId) {
+            cancelAnimationFrame(animationId);
+        }
+    });
+});
+</script>
+ <!-- SECTION 5: TIMELINE -->
+<section class="travelweb-aboutus-sec-5 py-5">
+    <div class="container">
+        <h2 class="travelweb-aboutus-sec-5-p mb-5">Our Journey Across Pan India</h2>
+        
+        <div class="section-5">
+            <div class="section-5-container">
+                <div class="section-5-timeline" id="timeline-scroll">
+                    <div class="section-5-timeline-wrapper">
+                        <div class="section-5-timeline-line"></div>
+                        <div class="section-5-timeline-row">
+                            <!-- Nodes 1-12 -->
+                            <div class="section-5-node section-5-node-top">
+                                <div class="section-5-node-connector"></div>
+                                <div class="section-5-node-dot"></div>
+                                <div class="section-5-node-label">
+                                    <div class="section-5-city">Sinnar</div>
+                                    <div class="section-5-year">2006</div>
                                 </div>
-                                <div class="section-5-node section-5-node-bottom">
-                                    <div class="section-5-node-connector"></div>
-                                    <div class="section-5-node-dot"></div>
-                                    <div class="section-5-node-label">
-                                        <div class="section-5-year">2007</div>
-                                        <div class="section-5-city">Nashik</div>
-                                    </div>
+                            </div>
+                            <div class="section-5-node section-5-node-bottom">
+                                <div class="section-5-node-connector"></div>
+                                <div class="section-5-node-dot"></div>
+                                <div class="section-5-node-label">
+                                    <div class="section-5-year">2007</div>
+                                    <div class="section-5-city">Nashik</div>
                                 </div>
-                                <div class="section-5-node section-5-node-top">
-                                    <div class="section-5-node-connector"></div>
-                                    <div class="section-5-node-dot"></div>
-                                    <div class="section-5-node-label">
-                                        <div class="section-5-city">Hyderabad</div>
-                                        <div class="section-5-year">2009</div>
-                                    </div>
+                            </div>
+                            <div class="section-5-node section-5-node-top">
+                                <div class="section-5-node-connector"></div>
+                                <div class="section-5-node-dot"></div>
+                                <div class="section-5-node-label">
+                                    <div class="section-5-city">Hyderabad</div>
+                                    <div class="section-5-year">2009</div>
                                 </div>
-                                <div class="section-5-node section-5-node-bottom">
-                                    <div class="section-5-node-connector"></div>
-                                    <div class="section-5-node-dot"></div>
-                                    <div class="section-5-node-label">
-                                        <div class="section-5-year">2011</div>
-                                        <div class="section-5-city">Bangalore</div>
-                                    </div>
+                            </div>
+                            <div class="section-5-node section-5-node-bottom">
+                                <div class="section-5-node-connector"></div>
+                                <div class="section-5-node-dot"></div>
+                                <div class="section-5-node-label">
+                                    <div class="section-5-year">2011</div>
+                                    <div class="section-5-city">Bangalore</div>
                                 </div>
-                                <div class="section-5-node section-5-node-top">
-                                    <div class="section-5-node-connector"></div>
-                                    <div class="section-5-node-dot"></div>
-                                    <div class="section-5-node-label">
-                                        <div class="section-5-city">Chennai</div>
-                                        <div class="section-5-year">2012</div>
-                                    </div>
+                            </div>
+                            <div class="section-5-node section-5-node-top">
+                                <div class="section-5-node-connector"></div>
+                                <div class="section-5-node-dot"></div>
+                                <div class="section-5-node-label">
+                                    <div class="section-5-city">Chennai</div>
+                                    <div class="section-5-year">2012</div>
                                 </div>
-                                <div class="section-5-node section-5-node-bottom">
-                                    <div class="section-5-node-connector"></div>
-                                    <div class="section-5-node-dot"></div>
-                                    <div class="section-5-node-label">
-                                        <div class="section-5-year">2015</div>
-                                        <div class="section-5-city">Pune</div>
-                                    </div>
+                            </div>
+                            <div class="section-5-node section-5-node-bottom">
+                                <div class="section-5-node-connector"></div>
+                                <div class="section-5-node-dot"></div>
+                                <div class="section-5-node-label">
+                                    <div class="section-5-year">2015</div>
+                                    <div class="section-5-city">Pune</div>
                                 </div>
-                                <div class="section-5-node section-5-node-top">
-                                    <div class="section-5-node-connector"></div>
-                                    <div class="section-5-node-dot"></div>
-                                    <div class="section-5-node-label">
-                                        <div class="section-5-city">Ahmednagar</div>
-                                        <div class="section-5-year">2019</div>
-                                    </div>
+                            </div>
+                            <div class="section-5-node section-5-node-top">
+                                <div class="section-5-node-connector"></div>
+                                <div class="section-5-node-dot"></div>
+                                <div class="section-5-node-label">
+                                    <div class="section-5-city">Ahmednagar</div>
+                                    <div class="section-5-year">2019</div>
                                 </div>
-                                <div class="section-5-node section-5-node-bottom">
-                                    <div class="section-5-node-connector"></div>
-                                    <div class="section-5-node-dot"></div>
-                                    <div class="section-5-node-label">
-                                        <div class="section-5-year">2021</div>
-                                        <div class="section-5-city">Ahmedabad</div>
-                                    </div>
+                            </div>
+                            <div class="section-5-node section-5-node-bottom">
+                                <div class="section-5-node-connector"></div>
+                                <div class="section-5-node-dot"></div>
+                                <div class="section-5-node-label">
+                                    <div class="section-5-year">2021</div>
+                                    <div class="section-5-city">Ahmedabad</div>
                                 </div>
-                                <div class="section-5-node section-5-node-top">
-                                    <div class="section-5-node-connector"></div>
-                                    <div class="section-5-node-dot"></div>
-                                    <div class="section-5-node-label">
-                                        <div class="section-5-city">Delhi</div>
-                                        <div class="section-5-year">2022</div>
-                                    </div>
+                            </div>
+                            <div class="section-5-node section-5-node-top">
+                                <div class="section-5-node-connector"></div>
+                                <div class="section-5-node-dot"></div>
+                                <div class="section-5-node-label">
+                                    <div class="section-5-city">Delhi</div>
+                                    <div class="section-5-year">2022</div>
                                 </div>
-                                <div class="section-5-node section-5-node-bottom">
-                                    <div class="section-5-node-connector"></div>
-                                    <div class="section-5-node-dot"></div>
-                                    <div class="section-5-node-label">
-                                        <div class="section-5-year">2023</div>
-                                        <div class="section-5-city">Jaipur</div>
-                                    </div>
+                            </div>
+                            <div class="section-5-node section-5-node-bottom">
+                                <div class="section-5-node-connector"></div>
+                                <div class="section-5-node-dot"></div>
+                                <div class="section-5-node-label">
+                                    <div class="section-5-year">2023</div>
+                                    <div class="section-5-city">Jaipur</div>
                                 </div>
-                                <div class="section-5-node section-5-node-top">
-                                    <div class="section-5-node-connector"></div>
-                                    <div class="section-5-node-dot"></div>
-                                    <div class="section-5-node-label">
-                                        <div class="section-5-city">Ankleshwar</div>
-                                        <div class="section-5-year">2024</div>
-                                    </div>
+                            </div>
+                            <div class="section-5-node section-5-node-top">
+                                <div class="section-5-node-connector"></div>
+                                <div class="section-5-node-dot"></div>
+                                <div class="section-5-node-label">
+                                    <div class="section-5-city">Ankleshwar</div>
+                                    <div class="section-5-year">2024</div>
                                 </div>
-                                <div class="section-5-node section-5-node-bottom">
-                                    <div class="section-5-node-connector"></div>
-                                    <div class="section-5-node-dot"></div>
-                                    <div class="section-5-node-label">
-                                        <div class="section-5-year">2025</div>
-                                        <div class="section-5-city">Goa & Kolhapur</div>
-                                    </div>
+                            </div>
+                            <div class="section-5-node section-5-node-bottom">
+                                <div class="section-5-node-connector"></div>
+                                <div class="section-5-node-dot"></div>
+                                <div class="section-5-node-label">
+                                    <div class="section-5-year">2025</div>
+                                    <div class="section-5-city">Goa & Kolhapur</div>
                                 </div>
                             </div>
                         </div>
@@ -209,10 +374,11 @@
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- SECTION 6: STATS -->
-    <section class="travelweb-aboutus-sec-6 py-5">
+    <section class="travelweb-aboutus-sec-6 py-5 mx-5">
         <div class="container">
             <div class="row text-center text-white">
                 <div class="col-6 col-md-3 mb-4 mb-md-0 stats-item">
@@ -269,7 +435,7 @@
                                     <h3 class="team-name mb-2">Sunil Dhane</h3>
                                     <p class="team-role mb-3">Founder & Director of DLPL</p>
                                     <p class="team-desc">
-                                        Sunil Dhane, the founder of our organization, originates from a farming background and obtained his Bachelor of Science degree from Satara. He spent 10 years as a Branch Manager at ACR Ltd., where he developed expertise in logistics. In 2006, he established his own business.
+                              Sunil Dhane, the founder of our organization, originates from a farming background and obtained his Bachelor of Science degree from Satara. He spent 10 years as a Branch Manager at ACR Ltd., where he developed expertise in logistics. In 2006, he established his own business. He has also been recognized for his contributions, serving as Vice President at NDTA in Nashik and holding significant positions within the Akhil Bharatiya Transport Association and the All India Motor Transport Congress. His primary objective is to deliver outstanding service to our customers.
                                     </p>
                                 </div>
                             </div>
@@ -286,7 +452,7 @@
                                     <h3 class="team-name mb-2">Sushma Dhane</h3>
                                     <p class="team-role mb-3">Co-Founder</p>
                                     <p class="team-desc">
-                                        Sushma Dhane is the Co-Founder of our company and wife of Sunil Dhane. She holds a BA degree from Satara and has been a key part of our growth and success, using her skills in operations and customer service to shape our journey.
+                                  Sushma Dhane is the Co-Founder of our company and wife of Sunil Dhane. She holds a BA degree from Satara and has been a key part of our growth and success, using her skills in operations and customer service to shape our journey. Her focus on doing things right and making customers happy has helped build our reputation. Sushma inspires our team with her passion and commitment, going above and beyond her role.
                                     </p>
                                 </div>
                             </div>
@@ -303,7 +469,7 @@
                                     <h3 class="team-name mb-2">Bhimrao Jadhav</h3>
                                     <p class="team-role mb-3">Vice President</p>
                                     <p class="team-desc">
-                                        Bhimrao Jadhav is the Vice President of the company with over 30 years of experience in the cargo, transport, and logistics industry, holding leadership roles at a Pan-India level.
+                               Bhimrao Jadhav is the Vice President of the company with over 30 years of experience in the cargo, transport, and logistics industry, holding leadership roles at a Pan-India level. He holds a Bachelor of Science degree from Aurangabad and has worked with leading global logistics organizations including Speedage Cargo, TNT, and FedEx. He is a 21 km Maharashtra Marathon awardee and has received multiple national and global performance awards for operational excellence and leadership.
                                     </p>
                                 </div>
                             </div>
@@ -320,7 +486,23 @@
                                     <h3 class="team-name mb-2">Samiksha Dhane</h3>
                                     <p class="team-role mb-3">General Manager</p>
                                     <p class="team-desc">
-                                        Samiksha Dhane serves as the General Manager. By profession, she is an Architect and holds a postgraduate degree in MBA (Logistics and Supply Chain Management).
+                                    Samiksha Dhane serves as the General Manager of our organization. By profession, she is an Architect and holds a postgraduate degree in MBA (Logistics and Supply Chain Management). With a clear vision to propel our company to the top, Samiksha drives our strategic initiatives with her expertise and passion. Her leadership is instrumental in shaping our growth and excellence.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        <div class="travelweb-aboutus-sec-8 carousel-card">
+                        <div class="container">
+                            <div class="row align-items-center">
+                                <div class="col-md-4 text-center mb-4 mb-md-0">
+                                    <img src="images/travelweb-aboutus-img20.png" class="img-fluid team-img" alt="Samiksha Dhane">
+                                </div>
+                                <div class="col-md-8 text-white">
+                                    <h3 class="team-name mb-2">Tejashree Pawar</h3>
+                                    <p class="team-role mb-3">Deputy General Manager</p>
+                                    <p class="team-desc">
+                                       Tejashree Pawar serves as Deputy General Manager at our company, leading key initiatives with her expertise. She holds a postgraduate degree in Commerce and brings over 12 years of rich experience in her domain. Her strategic insights and leadership play a pivotal role in driving our growth and achieving organizational success.
                                     </p>
                                 </div>
                             </div>
@@ -334,6 +516,7 @@
                     <span class="dot" data-index="1"></span>
                     <span class="dot" data-index="2"></span>
                     <span class="dot" data-index="3"></span>
+                      <span class="dot" data-index="4"></span>
                 </div> 
             </div>
         </div> 
@@ -378,44 +561,75 @@
     
     <!-- Carousel JavaScript -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const carouselTrack = document.querySelector('.aboutus-carousel-track');
-            const carouselCards = document.querySelectorAll('.carousel-card');
-            const dots = document.querySelectorAll('.dot');
-            const cardWidth = carouselCards[0].offsetWidth;
-            let currentIndex = 0;
-            
-            // Initialize carousel
-            function updateCarousel() {
-                carouselTrack.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
-                
-                // Update dots
-                dots.forEach((dot, index) => {
-                    if (index === currentIndex) {
-                        dot.classList.add('active');
-                    } else {
-                        dot.classList.remove('active');
-                    }
-                });
+  // Carousel JavaScript - Updated for responsive width
+document.addEventListener('DOMContentLoaded', function() {
+    const carouselTrack = document.querySelector('.aboutus-carousel-track');
+    const carouselCards = document.querySelectorAll('.carousel-card');
+    const dots = document.querySelectorAll('.dot');
+    let currentIndex = 0;
+    
+    // Function to get current card width
+    function getCardWidth() {
+        if (carouselCards.length === 0) return 0;
+        // Use the carousel window width instead of card offsetWidth
+        const carouselWindow = document.querySelector('.aboutus-carousel-window');
+        return carouselWindow ? carouselWindow.offsetWidth : carouselCards[0].offsetWidth;
+    }
+    
+    // Initialize carousel
+    function updateCarousel() {
+        const cardWidth = getCardWidth();
+        carouselTrack.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+        
+        // Update dots
+        dots.forEach((dot, index) => {
+            if (index === currentIndex) {
+                dot.classList.add('active');
+            } else {
+                dot.classList.remove('active');
             }
-            
-            // Dot click events
-            dots.forEach((dot, index) => {
-                dot.addEventListener('click', function() {
-                    currentIndex = index;
-                    updateCarousel();
-                });
-            });
-            
-            // Auto slide every 5 seconds
-            setInterval(() => {
-                currentIndex = (currentIndex + 1) % carouselCards.length;
-                updateCarousel();
-            }, 5000);
-            
-            // Initial update
+        });
+    }
+    
+    // Dot click events
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', function() {
+            currentIndex = index;
             updateCarousel();
         });
+    });
+    
+    // Auto slide every 5 seconds
+    let autoSlideInterval = setInterval(() => {
+        currentIndex = (currentIndex + 1) % carouselCards.length;
+        updateCarousel();
+    }, 5000);
+    
+    // Pause auto-slide on hover
+    const carouselSection = document.querySelector('.aboutus-carousel-section');
+    carouselSection.addEventListener('mouseenter', () => {
+        clearInterval(autoSlideInterval);
+    });
+    
+    carouselSection.addEventListener('mouseleave', () => {
+        autoSlideInterval = setInterval(() => {
+            currentIndex = (currentIndex + 1) % carouselCards.length;
+            updateCarousel();
+        }, 2000);
+    });
+    
+    // Handle window resize
+    let resizeTimeout;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            updateCarousel();
+        }, 250);
+    });
+    
+    // Initial update
+    updateCarousel();
+});
     </script>
     
     <!-- Smooth scroll for contact form -->

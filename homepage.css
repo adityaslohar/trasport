@@ -16,7 +16,7 @@ body {
 
 /* Reset Bootstrap carousel indicator defaults */
 .carousel-indicators [data-bs-target] {
-    box-sizing: border-box;
+
     text-indent: 0;
 }
 
@@ -31,6 +31,7 @@ body {
 
 .home-sec-1-carousel .carousel-indicators button {
     box-sizing: border-box;
+        border: none !important;
 }
 
 /* Main carousel section wrapper */
@@ -181,7 +182,7 @@ body {
 
 .home-sec-1-indicators button.active {
     background-color: #E63946 !important;
-    border: 2px solid white;
+   
     transform: scale(1.3);
 }
 
@@ -246,7 +247,7 @@ body {
 
 .home-section-container {
     background-color: white;
-    padding: 2rem;
+    padding: 2rem 2rem 0rem 2rem;
     background-image: url('images/home-sec-2-bg-img.png');
     background-repeat: no-repeat;
     background-position: top right;
@@ -339,7 +340,7 @@ body {
 
 .home-services-container {
     background-color: white;
-    padding: 3rem 2rem;
+    padding: 1rem 2rem;
     background-image: url('images/home-sec-3-bg-img.png');
     background-repeat: no-repeat;
     background-position: bottom left;
@@ -358,7 +359,7 @@ body {
     font-family: 'Rasa', serif;
     color: #E63946;
     font-weight: 700;
-    font-size: 2.5rem;
+    font-size: 2rem;
     line-height: 1.2;
     margin-bottom: 1rem;
 }
@@ -456,7 +457,7 @@ body {
     font-family: 'Rasa', serif;
     color: #E63946;
     font-weight: 700;
-    font-size: 2.5rem;
+    font-size: 2rem;
     line-height: 1.2;
     text-align: center;
     margin-bottom: 1rem;
@@ -647,13 +648,13 @@ body {
 }
 
 .testimonial-carousel-nav button {
-    width: 40px;
-    height: 40px;
+  width: 55px;
+    height: 55px;
     border-radius: 50%;
     border: none;
     background-color: #E63946;
     color: #fff;
-    font-size: 1.2rem;
+    font-size: 1.6rem;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -721,7 +722,7 @@ body {
 .section-6-carousel-wrapper {
     width: 100%;
     overflow: hidden;
-    padding: 2rem 0;
+    padding: 0rem 0;
     background: #ffffff;
 }
 
@@ -738,7 +739,7 @@ body {
 
 .section-6-carousel-item img {
     /* width: 235px; */
-    height: 235px;
+    height: 125px;
     object-fit: cover;
     border-radius: 8px;
     transition: transform 0.3s ease;
@@ -897,7 +898,7 @@ body {
 @media (min-width: 1200px) {
     .home-sec-1-title,
     .home-sec-1-title-move {
-        font-size: 3.5rem;
+        font-size: 3.2rem;
     }
     
     .home-sec-1-subtitle {
@@ -924,7 +925,7 @@ body {
     }
 
     .home-stat-item-number {
-        font-size: 2.5rem;
+        font-size: 4.5rem;
     }
 
     .home-stat-item-text {

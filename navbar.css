@@ -403,7 +403,7 @@ nav a:hover {
     /* background: #E4813A; */
     border-radius: 8px;
     font-family: "Inter", sans-serif;
-    color: #FFFF;
+    color: #FFFF !important;
     font-weight: 400;
     background: rgba(230, 57, 70, 1);
     margin-right: 17px !important;
@@ -752,3 +752,237 @@ align-items: center;
     .home-sec-1-whatsapp-btn i {
         font-size: 1.5rem;
     }
+
+
+
+
+
+
+
+    /* Fix Partner Dropdown Hover and Active States */
+.dropdown > a {
+    color: black;
+    font-weight: 500;
+    font-size: 1rem;
+    font-family: "Inter", sans-serif;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+}
+
+/* Remove the scale effect from general hover for dropdown */
+.dropdown > a:hover {
+    color: #E63946 !important;
+    transform: none; /* Remove scale effect */
+}
+
+/* Fix dropdown content positioning */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 100%;
+    background-color: white;
+    width: max-content;
+    min-width: 220px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    z-index: 999;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 2px;
+}
+
+.dropdown-content li {
+    padding: 0;
+    margin: 0;
+    border-bottom: 1px solid #f0f0f0;
+    transition: all 0.3s ease;
+}
+
+.dropdown-content li:first-child {
+    border-bottom: none !important;
+}
+
+.dropdown-content li:last-child {
+    border-bottom: none;
+}
+
+.dropdown-content li a {
+    text-decoration: none;
+    color: #292c6d;
+    padding: 12px 20px;
+    display: block;
+    font-weight: 500;
+    font-family: "Inter", sans-serif;
+    transition: all 0.3s ease;
+}
+
+.dropdown-content li a:hover {
+    background-color: rgba(230, 57, 70, 0.08);
+    color: #E63946 !important;
+    padding-left: 25px;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Fix dropdown active state */
+.dropdown > a.active {
+    color: #E63946 ;
+    font-weight: 600;
+}
+
+.dropdown > a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 3px;
+    background-color: #E63946;
+    border-radius: 2px;
+}
+
+
+
+.bit-land-nav-contactus:hover {
+    background: #d12b3a !important;
+    color: #ffffff !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(230, 57, 70, 0.3);
+}
+
+
+/* Remove conflicting hover styles from parent nav a */
+nav li a:hover {
+    color: #E63946 !important;
+    transform: scale(1.05); /* Keep slight scale but not for dropdown */
+}
+
+/* Override for dropdown parent to prevent scale */
+.dropdown > a:hover {
+    transform: none;
+}
+
+/* Fix sidebar contact button */
+.sidebar .bit-land-nav-contactus {
+    margin: 15px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    padding: 12px 0 !important;
+}
+
+/* Fix mobile styles for contact button */
+@media(max-width: 800px){
+    .contactusOnmobile {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+    
+    .sidebar .bit-land-nav-contactus {
+        width: 90%;
+        margin: 10px auto;
+        padding: 12px 0 !important;
+    }
+}
+
+/* Fix the dropdown arrow icon */
+.dropdown > a i.fa-caret-down {
+    margin-left: 5px;
+    transition: transform 0.3s ease;
+}
+
+.dropdown:hover > a i.fa-caret-down {
+    transform: rotate(180deg);
+    color: #E63946;
+}
+
+/* Fix dropdown items active state */
+.dropdown-content li a.active {
+    color: #E63946 !important;
+    font-weight: 600;
+    background-color: rgba(230, 57, 70, 0.08);
+    position: relative;
+}
+
+.dropdown-content li a.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 70%;
+    background-color: #E63946;
+    border-radius: 0 2px 2px 0;
+}
+
+/* Fix z-index issues */
+.navbar-section {
+    position: relative;
+    z-index: 1000;
+}
+
+.dropdown-content {
+    z-index: 1001;
+}
+
+/* Fix alignment issues */
+nav ul {
+    align-items: center;
+}
+
+/* Remove duplicate or conflicting styles */
+nav li a {
+    transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+/* Ensure proper spacing */
+nav a {
+    padding: 0 20px;
+}
+
+@media (max-width: 1200px) {
+    nav a {
+        padding: 0 15px;
+    }
+}
+
+/* Fix the first child margin */
+nav :first-child {
+    margin-right: auto;
+}
+
+/* Ensure logo doesn't get affected by hover styles */
+nav :first-child a:hover {
+    transform: none !important;
+}
+
+/* Fix the active border for all nav items */
+nav ul li.hideOnMobile a.active {
+    color: #E63946;
+    position: relative;
+}
+
+nav ul li.hideOnMobile a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 3px;
+    background-color: #E63946;
+    border-radius: 2px;
+}
+
+/* Fix for Partner dropdown active state when on partner pages */
+.dropdown.active > a {
+    color: #E63946 !important;
+}

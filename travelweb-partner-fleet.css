@@ -92,7 +92,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .fleet-hero-section::before {
     content: '';
-    position: absolute;
+    /* position: absolute; */
     top: 0;
     left: 0;
     right: 0;
@@ -176,80 +176,59 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ================= SECTION 4: HOW IT WORKS ================= */
-.how-it-works-section {
-    padding: 4rem 0;
-    background-color: white;
+
+
+/* -------------------------------section4-------------------------- */
+.travelweb-partner-sec-4-p{
+    font-family: Rasa;
+font-weight: 600;
+font-style: SemiBold;
+font-size: 2.5rem;
+color: #E63946;
+text-align: center;
+margin-top: 2%;
+margin-bottom: 2%;
 }
 
-.process-timeline {
+.travelweb-partner-sec-4-images{
     display: flex;
     justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 2rem;
-    position: relative;
+margin-left: 5%;
+margin-right: 5%;
 }
 
-.process-step {
-    text-align: center;
-    width: 180px;
+.travelweb-partner-img3{
+    width: 100%;
 }
-
-.step-icon-wrapper {
-    position: relative;
-    width: 100px;
-    height: 100px;
-    margin: 0 auto 1.5rem;
-    background: linear-gradient(135deg, var(--primary-red) 0%, #ff6b7a 100%);
-    border-radius: 50%;
+.travelweb-partner-img11{
+/* width: 50%; */
+margin-top: 81%;
+}
+.travelweb-partner-img4{
+    width: 100%;
+}
+.travelweb-partner-img5{
+    width: 100%;
+}
+.travelweb-partner-img6{
+    width: 100%;
+}
+.travelweb-partner-img7{
+    width: 100%;
+}
+.travelweb-partner-sec-4-text{
     display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 8px 20px rgba(230, 57, 70, 0.3);
+    justify-content: space-around;
 }
-
-.step-number {
-    position: absolute;
-    top: -10px;
-    right: -10px;
-    width: 35px;
-    height: 35px;
-    background-color: var(--primary-dark);
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Archivo', sans-serif;
-    font-weight: 700;
-    font-size: 0.9rem;
-}
-
-.step-icon {
-    width: 50px;
-    height: 50px;
-    filter: brightness(0) invert(1);
-}
-
-.step-title {
-    font-family: 'Archivo', sans-serif;
-    font-weight: 700;
-    font-size: 1.1rem;
-    color: var(--primary-red);
-    margin-bottom: 0.5rem;
-}
-
-.step-description {
-    font-family: 'Archivo', sans-serif;
-    font-size: 0.9rem;
-    color: var(--text-light);
-    line-height: 1.5;
-}
-
-.timeline-arrow {
-    color: var(--primary-red);
-    font-size: 1.5rem;
-    display: none;
+.travelweb-partner-sec-4-text-p1{
+    font-family: Archivo;
+font-weight: 700;
+font-style: Bold;
+font-size: 1.2rem;
+color: #E63946;
+margin-top: 2%;
+text-align: center;
+margin-left: 7%;
 }
 
 /* ================= SECTION 5: CTA BANNER ================= */

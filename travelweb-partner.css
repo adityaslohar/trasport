@@ -83,7 +83,7 @@ border-radius: 5px;
 .travelweb-partner-sec-3-up{
     display: flex;
     justify-content: flex-start;
-        padding-left: 4%;
+     
 }
 .travelweb-partner-img2{
     width: 50%;
@@ -660,4 +660,98 @@ width: 10%;
 .travelweb-partner-sec5-left-p3-1 {
         padding-top: 6%;
     }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ================= SECTION 6: CONTACT INFO ================= */
+.contact-info-section {
+    padding: 4rem 0;
+    background-color: white;
+}
+
+.info-card {
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+    height: 100%;
+    text-align: center;
+    box-shadow: var(--shadow-light);
+}
+
+.info-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-heavy);
+    border-color: var(--primary-red);
+}
+
+.info-icon-wrapper {
+    width: 60px;
+    height: 60px;
+    background-color: rgba(230, 57, 70, 0.1);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+}
+
+.info-icon {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+
+.info-title {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: var(--primary-dark);
+    margin-bottom: 1rem;
+}
+
+.info-text {
+    font-family: 'Archivo', sans-serif;
+    font-size: 1rem;
+    color: var(--text-light);
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+}
+
+.process-note {
+    background-color: rgba(230, 57, 70, 0.05);
+    border-left: 4px solid var(--primary-red);
+    border-radius: 8px;
+    padding: 1.5rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.note-text {
+    font-family: 'Archivo', sans-serif;
+    font-size: 1.1rem;
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    text-align: center;
 }
